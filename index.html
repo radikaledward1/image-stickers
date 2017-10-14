@@ -30,15 +30,36 @@
 
 		<div class="row">
 
-			<div class="col-md-12" style="text-align: center;">
+			<div class="col-xs-6">
 
-				<div class="canvas">
-					<div id="redsquare"></div>
-					<div id="greensquare"></div>
+				<div class="row" id="canvas">
+					<img class="col-xs-12" id="preview" src="#" />
 				</div>
 
-				<input type="button" value="procesar" id="procesar" />
+				<!--<input type="button" value="procesar" id="procesar" />-->
 				<!--<a id="descargar" href="#">descargar</a>-->
+				<input type='file' name="fileToUpload" id="fileToUpload" onchange="readURL(this);" />
+
+			</div>
+
+			<div class="col-xs-6">
+
+				<p>Select a sticker:</p>
+
+				<div class="row">
+					<div class="col-md-2">
+						<div class="opt-sticker opt-sticker-red"></div>
+					</div>
+					<div class="col-md-2">
+						<div class="opt-sticker opt-sticker-green"></div>
+					</div>
+					<div class="col-md-2">
+						<div class="opt-sticker opt-sticker-purple"></div>
+					</div>
+				</div>
+				<br>
+				<p>Select a strap:</p>
+					<div class="opt-strap opt-strap-blue"></div>
 
 			</div>
 

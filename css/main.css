@@ -1,58 +1,38 @@
-
-/*
-#wrapper {
-	  text-align: left;
-	  width: 870px;
-	  height:566px;
-	  margin-left: auto;
-	  margin-right: auto;
-}
-
-#options{
-	width: 144px;
-	float:left;
-}
-
-#options img {
-	margin-bottom: 15px;
-	width: 70px;
-	height: 35px;
-}
-
-#canvas{
-	width:800px;
-	height:796px;
-	float:left;
-	background-image:url(../img/people-face5.jpg);
-}
-*/
-
-.canvas {
+#canvas {
 	margin: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    background-image: url(../img/people-face5.jpg);
-    background-size: 100%;
+    background: url(../img/photo.png) #c7c7c7;
+    background-size: 20%;
+    background-position: center center;
     background-repeat: no-repeat;
     border: 2px;
     border-style: solid;
     border-color: red;
-    width: 380px;
-    height: 400px;
+    min-height: 20vh;
+    max-width: 380px;
 }
 
-#redsquare { 
-	width: 50px; 
-	height: 50px;
-	top: 10%;
-	left: 10%;
-	background: red; 
+#preview {
+	padding: 0px;
+	display:none;
 }
 
-#greensquare { 
-	width: 50px; 
-	height: 50px;
-	top: 60%;
-	left: 80%;
-	background: green; 
+.opt-sticker, .opt-strap {
+	width: 70px;
+	height: 70px;
+}
+
+.opt-sticker-red {
+	background: red;
+}
+
+.opt-sticker-green {
+	background: green;
+}
+
+.opt-sticker-purple {
+	background: purple;
+}
+
+.opt-strap-blue {
+	background: blue;
 }

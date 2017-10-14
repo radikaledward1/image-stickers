@@ -1,103 +1,113 @@
+$(document).ready(function() {
 
-/*	
-function allowDrop(e)
-{
-    e.preventDefault();
-}
+  $( init );
 
-function drag(e)
-{
-    //store the position of the mouse relativly to the image position
-    e.dataTransfer.setData("mouse_position_x",e.clientX - e.target.offsetLeft );
-    e.dataTransfer.setData("mouse_position_y",e.clientY - e.target.offsetTop  );
+  function init() {
 
-    e.dataTransfer.setData("image_id",e.target.id);
-}
+    // Draggable elements
 
-function drop(e)
-{
-    e.preventDefault();
-    var image = document.getElementById( e.dataTransfer.getData("image_id") );
+    $('.opt-sticker').draggable( {
+      //containment: '#canvas',
+      cursor: 'move',
+      //snap: '#canvas',
+      revert: "invalid",
+      helper: 'clone',
+      opacity: 0.35
+    } );
 
-    var mouse_position_x = e.dataTransfer.getData("mouse_position_x");
-    var mouse_position_y = e.dataTransfer.getData("mouse_position_y");
+    $('.opt-strap').draggable( {
+      //containment: '#canvas',
+      cursor: 'move',
+      //snap: '#canvas',
+      revert: "invalid",
+      helper: 'clone',
+      opacity: 0.35
+    } );
 
-    var canvas = document.getElementById('canvas');
+    // Droppable elements
 
-    var ctx = canvas.getContext('2d');
+    $('#canvas').droppable( {
+      accept: '.opt-sticker, .opt-strap',
+      drop: handleDropEvent
+    } );
 
-	var imageObj = new Image();
+  }
 
-    imageObj.onload=function(){
-        ctx.save();
-    	ctx.drawImage(this,0,0,canvas.width,canvas.height);
-        ctx.restore();
+  function handleDropEvent( event, ui ) {
+
+    //implementar que no se pueden poner mas de un mismo elemento en el canvas. (Listo)
+    //implementar que no se puedan poner mas de dos elementos en el canvas.
+
+    var object = ui.draggable.clone();
+    var object_class = '.' + object.attr('class').split(' ')[1];
+
+    if ($(this).find(object_class).length == 0) {
+
+      object.draggable({containment: '#canvas', snap: '#canvas'});
+      $(this).append(object);
+
     }
 
-    imageObj.src="people-face5.jpg";
+  }
 
-    // the image is drawn on the canvas at the position of the mouse when we lifted the mouse button
-    ctx.drawImage( image , e.clientX - canvas.offsetLeft - mouse_position_x , e.clientY - canvas.offsetTop - mouse_position_y );
-}
-*/
+  $("#procesar").click(function(){
 
-$( init );
+      var element = $("#canvas");
+      //var getCanvas;
 
-function init() {
+      /*html2canvas(element, {
+       onrendered: function (image) {
 
-  $('#redsquare').draggable( {
-    containment: '.canvas',
-    cursor: 'move',
-    snap: '.canvas'
-  } );
+              getCanvas = image;
 
-  $('#greensquare').draggable( {
-    containment: '.canvas',
-    cursor: 'move',
-    snap: '.canvas'
-  } );
+              var imgageData = getCanvas.toDataURL("image/png");
+      
+              var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+              $("#descargar").attr("download", "pruebas-descarga.png").attr("href", newData);
 
-}
+           }
+       });*/
 
-$("#procesar").click(function(){
+      html2canvas(element, {
+           onrendered: function (image) {
 
-    var element = $(".canvas");
-    //var getCanvas;
+              //get the rendered canvas, and create, another one with the new size
+              var extra_canvas = document.createElement("canvas");
+              extra_canvas.setAttribute('width',736);
+              extra_canvas.setAttribute('height',796);
+              var ctx = extra_canvas.getContext('2d');
+              ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, 736, 796);
 
-    /*html2canvas(element, {
-     onrendered: function (image) {
+              /*var imgageData = extra_canvas.toDataURL("image/png");
 
-            getCanvas = image;
+              var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+              $("#descargar").attr("download", "pruebas-descarga.png").attr("href", newData);*/
 
-            var imgageData = getCanvas.toDataURL("image/png");
-    
-            var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-            $("#descargar").attr("download", "pruebas-descarga.png").attr("href", newData);
+              //use FileSaver to download the image canvas correctly
+              extra_canvas.toBlob(function(blob) {
 
-         }
-     });*/
+                  saveAs(blob, "image-sticker.png");
+              });
+          }
+      });
 
-    html2canvas(element, {
-         onrendered: function (image) {
+  });
 
-            //get the rendered canvas, and create, another one with the new size
-            var extra_canvas = document.createElement("canvas");
-            extra_canvas.setAttribute('width',736);
-            extra_canvas.setAttribute('height',796);
-            var ctx = extra_canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, 736, 796);
+  function readURL(input) {
 
-            /*var imgageData = extra_canvas.toDataURL("image/png");
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
-            var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-            $("#descargar").attr("download", "pruebas-descarga.png").attr("href", newData);*/
+      reader.onload = function (e) {
 
-            //use FileSaver to download the image canvaz correctly
-            extra_canvas.toBlob(function(blob) {
+        $('#preview').css('display', 'block');
+        $('#preview').attr('src', e.target.result);
 
-                saveAs(blob, "image-sticker.png");
-            });
-        }
-    });
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+
+  }
 
 });
