@@ -93,21 +93,21 @@ $(document).ready(function() {
 
   });
 
-  function readURL(input) {
+});
 
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
+function readURL(input) {
+  
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
 
-      reader.onload = function (e) {
+    reader.onload = function (e) {
 
-        $('#preview').css('display', 'block');
-        $('#preview').attr('src', e.target.result);
+      $('#preview').css('display', 'block');
+      $('#preview').attr('src', e.target.result);
 
-      }
-
-      reader.readAsDataURL(input.files[0]);
     }
 
+    reader.readAsDataURL(input.files[0]);
   }
 
-});
+}
