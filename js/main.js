@@ -24,30 +24,6 @@ $(document).ready(function() {
       opacity: 0.35
     } );
 
-    // Droppable elements
-
-    $('#canvas').droppable( {
-      accept: '.opt-sticker, .opt-strap',
-      drop: handleDropEvent
-    } );
-
-  }
-
-  function handleDropEvent( event, ui ) {
-
-    //implementar que no se pueden poner mas de un mismo elemento en el canvas. (Listo)
-    //implementar que no se puedan poner mas de dos elementos en el canvas.
-
-    var object = ui.draggable.clone();
-    var object_class = '.' + object.attr('class').split(' ')[1];
-
-    if ($(this).find(object_class).length == 0) {
-
-      object.draggable({containment: '#canvas', snap: '#canvas'});
-      $(this).append(object);
-
-    }
-
   }
 
   $("#procesar").click(function(){
@@ -93,7 +69,20 @@ $(document).ready(function() {
 
   });
 
+
+  $('#limpiar').click(function() {
+
+    clear_canvas();
+
+  });
+
 });
+
+function clear_canvas() {
+
+  $('#canvas').find('.opt-sticker, .opt-strap').remove();
+
+}
 
 function readURL(input) {
   
@@ -102,12 +91,42 @@ function readURL(input) {
 
     reader.onload = function (e) {
 
+      var src = $('#preview').attr('src');
+      if ( src == '#') {
+
+        $('#canvas').droppable( {
+          accept: '.opt-sticker, .opt-strap',
+          drop: handleDropEvent
+        } );
+
+      }else{
+
+        clear_canvas();
+      }
+
       $('#preview').css('display', 'block');
       $('#preview').attr('src', e.target.result);
 
     }
 
     reader.readAsDataURL(input.files[0]);
+  }
+
+}
+
+function handleDropEvent( event, ui ) {
+
+  //implementar que no se pueden poner mas de un mismo elemento en el canvas. (Listo)
+  //implementar que no se puedan poner mas de dos elementos en el canvas.
+
+  var object = ui.draggable.clone();
+  var object_class = '.' + object.attr('class').split(' ')[1];
+
+  if ($(this).find(object_class).length == 0) {
+
+    object.draggable({containment: '#canvas', snap: '#canvas'});
+    $(this).append(object);
+
   }
 
 }
