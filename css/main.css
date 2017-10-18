@@ -1,3 +1,4 @@
+/* general */
 #canvas {
 	margin: 10px;
     background: url(../img/photo.png) #c7c7c7;
@@ -15,24 +16,39 @@
 	padding: 0px;
 	display:none;
 }
+/* ends */
 
 .opt-sticker, .opt-strap {
 	width: 70px;
 	height: 70px;
 }
 
-.opt-sticker-red {
+/* stickers */
+#opt-sticker-red {
 	background: red;
 }
 
-.opt-sticker-green {
+#helper-sticker-red img {
+	width: 50px;
+	height: 50px;
+}
+
+#opt-sticker-green {
 	background: green;
 }
 
-.opt-sticker-purple {
+#opt-sticker-purple {
 	background: purple;
 }
+/* ends */
 
-.opt-strap-blue {
+/* straps */
+#opt-strap-blue {
 	background: blue;
 }
+
+#helper-strap-blue img {
+	width: 100px;
+	height: 50px;
+}
+/* ends */

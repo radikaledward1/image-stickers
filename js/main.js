@@ -1,8 +1,49 @@
 var elements_counter = 0;
 
-// Draggable elements
-
 $('.opt-sticker').draggable( {
+  //containment: '#canvas',
+  cursor: 'move',
+  //snap: '#canvas',
+  revert: "invalid",
+  //helper: 'clone',
+  helper: function(event) {
+    var object_id = $(this).attr('id');
+    var helper = '';
+
+    switch (object_id) {
+
+      case "opt-sticker-red":
+        helper = "<div class='sticker' id='helper-sticker-red'><img src='img/stickers/sticker-0.png'></div>";
+      break;
+    }
+
+    return $(helper);
+  },
+  opacity: 0.35
+} );
+
+$('.opt-strap').draggable( {
+  //containment: '#canvas',
+  cursor: 'move',
+  //snap: '#canvas',
+  revert: "invalid",
+  helper: function(event) {
+    var object_id = $(this).attr('id');
+    var helper = '';
+
+    switch (object_id) {
+
+      case "opt-strap-blue":
+        helper = "<div class='strap' id='helper-strap-blue'><img src='img/banners/banner-0.png'></div>";
+      break;
+    }
+
+    return $(helper);
+  },
+  opacity: 0.35
+} );
+
+/*$('.opt-sticker').draggable( {
   //containment: '#canvas',
   cursor: 'move',
   //snap: '#canvas',
@@ -18,7 +59,7 @@ $('.opt-strap').draggable( {
   revert: "invalid",
   helper: 'clone',
   opacity: 0.35
-} );
+} );*/
 
 $("#procesar").click(function(){
 
@@ -73,7 +114,7 @@ $('#limpiar').click(function() {
 function clear_canvas() {
 
   //Remove all elements in the canvas
-  $('#canvas').find('.opt-sticker, .opt-strap').remove();
+  $('#canvas').find('.sticker, .strap').remove();
 
   //Restart the elements_counter
   elements_counter = 0;
@@ -115,7 +156,7 @@ function readURL(input) {
 
 function handleDropEvent( event, ui ) {
 
-  var object = ui.draggable.clone();
+  /*var object = ui.draggable.clone();
   var object_class = '.' + object.attr('class').split(' ')[1];
 
   if ($(this).find(object_class).length == 0) {
@@ -128,6 +169,32 @@ function handleDropEvent( event, ui ) {
     if (elements_counter == 2) {
       $(this).droppable('disable');
     }
+
+  }*/
+
+  var object = ui.helper.clone();
+  var object_id = '#' + object.attr('id');
+
+  if ($(this).find(object_id).length == 0) {
+
+    elements_counter++;
+
+    if (elements_counter == 2) {
+
+      object.css({top: '150px', left: '50px', opacity: ''});
+      $(this).droppable('disable');
+
+    }else{
+
+      object.css({top: '50px', left: '50px', opacity: ''});
+    }
+
+    object.draggable({containment: '#canvas'});
+
+    /*var child = object.children();
+    child.resizable({containment: '#canvas'});*/
+
+    $(this).append(object);
 
   }
 
