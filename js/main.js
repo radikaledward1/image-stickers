@@ -1,5 +1,51 @@
 var elements_counter = 0;
 
+/*
+$("#owl-stickers").owlCarousel({
+  margin:10,
+  mouseDrag:false,
+  responsiveClass:true,
+  responsive:{
+    0:{
+        items:5,
+        nav:true,
+        loop:false
+    },
+    600:{
+        items:3,
+        nav:false
+    },
+    1000:{
+        items:5,
+        nav:true,
+        loop:false
+    }
+  }
+});
+
+$("#owl-straps").owlCarousel({
+  margin:10,
+  MouseDrag:false,
+  responsiveClass:true,
+  responsive:{
+    0:{
+        items:5,
+        nav:true,
+        loop:false
+    },
+    600:{
+        items:3,
+        nav:false
+    },
+    1000:{
+        items:5,
+        nav:true,
+        loop:false
+    }
+  }
+});
+*/
+
 $('.opt-sticker').draggable( {
   //containment: '#canvas',
   cursor: 'move',
@@ -174,6 +220,7 @@ function handleDropEvent( event, ui ) {
 
   var object = ui.helper.clone();
   var object_id = '#' + object.attr('id');
+  var object_class = object.attr('class').split(' ')[0];
 
   if ($(this).find(object_id).length == 0) {
 
@@ -191,8 +238,18 @@ function handleDropEvent( event, ui ) {
 
     object.draggable({containment: '#canvas'});
 
-    /*var child = object.children();
-    child.resizable({containment: '#canvas'});*/
+    var child = object.children();
+    if (object_class == 'sticker') {
+
+      child.css({width: '50px', height: '50px'});
+
+    }else{
+
+      child.css({width: '100px', height: '50px'});
+
+    }
+    
+    child.resizable({containment: '#canvas'});
 
     $(this).append(object);
 
