@@ -1,50 +1,3 @@
-var elements_counter = 0;
-
-/*
-$("#owl-stickers").owlCarousel({
-  margin:10,
-  mouseDrag:false,
-  responsiveClass:true,
-  responsive:{
-    0:{
-        items:5,
-        nav:true,
-        loop:false
-    },
-    600:{
-        items:3,
-        nav:false
-    },
-    1000:{
-        items:5,
-        nav:true,
-        loop:false
-    }
-  }
-});
-
-$("#owl-straps").owlCarousel({
-  margin:10,
-  MouseDrag:false,
-  responsiveClass:true,
-  responsive:{
-    0:{
-        items:5,
-        nav:true,
-        loop:false
-    },
-    600:{
-        items:3,
-        nav:false
-    },
-    1000:{
-        items:5,
-        nav:true,
-        loop:false
-    }
-  }
-});
-*/
 
 $('.opt-sticker').draggable( {
   //containment: '#canvas',
@@ -59,28 +12,7 @@ $('.opt-sticker').draggable( {
     switch (object_id) {
 
       case "opt-sticker-red":
-        helper = "<div class='sticker' id='helper-sticker-red'><img src='img/stickers/sticker-0.png'></div>";
-      break;
-    }
-
-    return $(helper);
-  },
-  opacity: 0.35
-} );
-
-$('.opt-strap').draggable( {
-  //containment: '#canvas',
-  cursor: 'move',
-  //snap: '#canvas',
-  revert: "invalid",
-  helper: function(event) {
-    var object_id = $(this).attr('id');
-    var helper = '';
-
-    switch (object_id) {
-
-      case "opt-strap-blue":
-        helper = "<div class='strap' id='helper-strap-blue'><img src='img/banners/banner-0.png'></div>";
+        helper = "<div class='helper-sticker'><img src='img/stickers/sticker-0.png'></div>";
       break;
     }
 
@@ -160,13 +92,7 @@ $('#limpiar').click(function() {
 function clear_canvas() {
 
   //Remove all elements in the canvas
-  $('#canvas').find('.sticker, .strap').remove();
-
-  //Restart the elements_counter
-  elements_counter = 0;
-
-  //The canvas is droppable again
-  $('#canvas').droppable('enable');
+  $('#canvas').find('.helper-sticker, .helper-strap').remove();
 
 }
 
@@ -181,7 +107,7 @@ function readURL(input) {
       if ( src == '#') {
 
         $('#canvas').droppable( {
-          accept: '.opt-sticker, .opt-strap',
+          accept: '.opt-sticker',
           drop: handleDropEvent
         } );
 
@@ -202,6 +128,27 @@ function readURL(input) {
 
 function handleDropEvent( event, ui ) {
 
+  var object = ui.helper.clone();
+  var object_class = object.attr('class').split(' ')[0];
+  
+  object.css({top: '50px', left: '50px', opacity: ''});
+  object.draggable({containment: '#canvas'});
+
+  var child = object.children();
+  if (object_class == 'helper-sticker') {
+
+    child.css({width: '50px', height: '50px'});
+
+  }else{
+
+    child.css({width: '100px', height: '50px'});
+
+  }
+    
+  child.resizable({containment: '#canvas'});
+
+  $(this).append(object);
+
   /*var object = ui.draggable.clone();
   var object_class = '.' + object.attr('class').split(' ')[1];
 
@@ -218,6 +165,7 @@ function handleDropEvent( event, ui ) {
 
   }*/
 
+  /*
   var object = ui.helper.clone();
   var object_id = '#' + object.attr('id');
   var object_class = object.attr('class').split(' ')[0];
@@ -254,5 +202,6 @@ function handleDropEvent( event, ui ) {
     $(this).append(object);
 
   }
+  */
 
 }
