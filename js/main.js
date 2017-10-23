@@ -152,7 +152,10 @@ function handleDropEvent( event, ui ) {
     
   child.resizable({containment: '#canvas'});
 
+  object.rotatable();
+
   $(this).append(object);
+  $(this).find('.ui-icon, .ui-rotatable-handle').attr('data-html2canvas-ignore', 'true');
 
   /*var object = ui.draggable.clone();
   var object_class = '.' + object.attr('class').split(' ')[1];
