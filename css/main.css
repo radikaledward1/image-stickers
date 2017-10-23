@@ -36,7 +36,24 @@
 
 /* stickers */
 #opt-sticker-red {
-	background: red;
+	background: url('../img/basketball.png') red;
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#opt-sticker-blue {
+	background: url('../img/football.png') blue;
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#opt-sticker-purple {
+	background: url('../img/ame-football.png') purple;
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 /* ends */
 
@@ -46,7 +63,6 @@
 	.opt-sticker {
 		width: 55px;
 		height: 55px;
-		margin-top: 10px;
 	}
 }
 
@@ -56,6 +72,5 @@
 	.opt-sticker {
 		width: 45px;
 		height: 45px;
-		margin-top: 10px;
 	}
 }

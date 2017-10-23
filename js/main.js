@@ -14,6 +14,11 @@ $('.opt-sticker').draggable( {
       case "opt-sticker-red":
         helper = "<div class='helper-sticker'><img src='img/stickers/sticker-0.png'></div>";
       break;
+      case "opt-sticker-blue":
+        helper = "<div class='helper-sticker'><img src='img/stickers/sticker-0.png'></div>";
+      break;
+      case "opt-sticker-purple":
+        helper = "<div class='helper-strap'><img src='img/banners/banner-0.png'></div>";
     }
 
     return $(helper);
