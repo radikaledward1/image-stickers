@@ -1,4 +1,6 @@
 
+var image_info = [];
+
 $('.opt-sticker').draggable( {
   //containment: '#canvas',
   cursor: 'move',
@@ -67,10 +69,10 @@ $("#procesar").click(function(){
 
             //get the rendered canvas, and create, another one with the new size
             var extra_canvas = document.createElement("canvas");
-            extra_canvas.setAttribute('width',736);
-            extra_canvas.setAttribute('height',796);
+            extra_canvas.setAttribute('width', image_info[0]);
+            extra_canvas.setAttribute('height', image_info[1]);
             var ctx = extra_canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, 736, 796);
+            ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, image_info[0], image_info[1]);
 
             /*var imgageData = extra_canvas.toDataURL("image/png");
 
@@ -108,6 +110,8 @@ function readURL(input) {
 
     reader.onload = function (e) {
 
+      var img = new Image;
+
       var src = $('#preview').attr('src');
       if ( src == '#') {
 
@@ -119,10 +123,19 @@ function readURL(input) {
       }else{
 
         clear_canvas();
+
+        //Restart image info
+        image_info = [];
       }
 
+      img.src = e.target.result;
       $('#preview').css('display', 'block');
       $('#preview').attr('src', e.target.result);
+
+      img.onload = function() {
+
+        image_info = [img.width, img.height];
+      }
 
     }
 
